@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>معمل النسبة والتشابه | مجموعة 40626123</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Tajawal', 'system-ui', 'sans-serif'] },
+        colors: {
+          ink:    { 50:'#f8fafc',100:'#f1f5f9',200:'#e2e8f0',700:'#334155',800:'#1e293b',900:'#0f172a',950:'#020617' },
+          brand:  { 50:'#eff6ff',100:'#dbeafe',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a' },
+          sun:    { 400:'#fb923c',500:'#f97316',600:'#ea580c' },
+          leaf:   { 400:'#34d399',500:'#10b981',600:'#059669' },
+          grape:  { 500:'#8b5cf6',600:'#7c3aed' },
+        },
+        boxShadow: { soft: '0 4px 20px -8px rgba(30, 58, 138, 0.15)', glow: '0 10px 40px -10px rgba(37, 99, 235, 0.35)' },
+      }
+    }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Tajawal', system-ui, sans-serif; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #f1f5f9; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(180deg,#2563eb,#1e40af); border-radius: 10px; }
+  .dark ::-webkit-scrollbar-track { background: #0f172a; }
+  .glass { backdrop-filter: blur(16px) saturate(180%); background: rgba(255,255,255,0.72); }
+  .dark .glass { background: rgba(15,23,42,0.72); }
+  .card { transition: transform .3s ease, box-shadow .3s ease; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(30,58,138,.35); }
+  .nav-active { background: linear-gradient(135deg,#2563eb,#1e40af); color: white !important; box-shadow: 0 6px 20px -6px rgba(37,99,235,.5); }
+  .tab-active { background: linear-gradient(135deg,#2563eb,#1e40af); color: white; }
+  .section-hidden { display: none !important; }
+  .katex { font-size: 1.05em; }
+  input, select { transition: all .2s; }
+  input:focus, select:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59,130,246,.15); }
+  .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .5; pointer-events: none; }
+  @media print { .no-print { display:none !important; } body { background:#fff; } }
+</style>
+</head>
+<body class="bg-ink-50 text-ink-900 dark:bg-ink-950 dark:text-ink-100 antialiased">
+
+<header class="sticky top-0 z-50 glass border-b border-ink-200/60 dark:border-ink-800/60 no-print">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="#" data-nav="home" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center shadow-glow">
+          <i class="fa-solid fa-flask text-white"></i>
+        </div>
+        <div class="leading-tight">
+          <div class="font-black text-base md:text-lg">معمل النسبة والتشابه</div>
+          <div class="text-xs text-ink-700/70 dark:text-ink-100/60">مجموعة 40626123</div>
+        </div>
+      </a>
+      <nav class="hidden lg:flex items-center gap-1" id="desktop-nav"></nav>
+      <div class="flex items-center gap-2">
+        <button id="printBtn" class="w-10 h-10 rounded-xl bg-ink-100 dark:bg-ink-800 hover:bg-ink-200 dark:hover:bg-ink-700 flex items-center justify-center transition" title="طباعة">
+          <i class="fa-solid fa-print text-ink-700 dark:text-ink-100"></i>
+        </button>
+        <button id="darkBtn" class="w-10 h-10 rounded-xl bg-ink-100 dark:bg-ink-800 hover:bg-ink-200 dark:hover:bg-ink-700 flex items-center justify-center transition" title="الوضع الداكن">
+          <i class="fa-solid fa-moon text-ink-700 dark:text-ink-100" id="darkIcon"></i>
+        </button>
+        <button id="mobileBtn" class="lg:hidden w-10 h-10 rounded-xl bg-ink-100 dark:bg-ink-800 flex items-center justify-center">
+          <i class="fa-solid fa-bars text-ink-700 dark:text-ink-100"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobileNav" class="hidden lg:hidden border-t border-ink-200 dark:border-ink-800 p-4 grid grid-cols-2 gap-2"></div>
+</header>
+
+<main id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12"></main>
+
+<footer class="mt-20 border-t border-ink-200 dark:border-ink-800 no-print">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+    <div class="inline-flex items-center gap-2 mb-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center">
+        <i class="fa-solid fa-flask text-white text-sm"></i>
+      </div>
+      <span class="font-bold">WE للتكنولوجيا التطبيقية</span>
+    </div>
+    <p class="text-sm text-ink-700/70 dark:text-ink-100/60">مشروع Capstone – الرياضيات التطبيقية – الصف الأول الثانوي</p>
+    <p class="text-sm text-ink-700/70 dark:text-ink-100/60">الوحدة الأولى: Ratio &amp; Similarity</p>
+    <p class="text-xs mt-3 text-ink-700/50 dark:text-ink-100/40">© 2026 · مجموعة 40626123 · جميع الحقوق محفوظة</p>
+  </div>
+</footer>
+
+<script>
+const NAV = [
+  { id:'home',      label:'الرئيسية',      icon:'fa-house' },
+  { id:'theory',    label:'المفاهيم',      icon:'fa-book-open' },
+  { id:'ratio',     label:'مختبر النسبة',  icon:'fa-scale-balanced' },
+  { id:'variation', label:'التغير',        icon:'fa-chart-line' },
+  { id:'polygons',  label:'المضلعات',      icon:'fa-draw-polygon' },
+  { id:'triangle',  label:'المثلثات',      icon:'fa-play' },
+  { id:'tech',      label:'التطبيقات',     icon:'fa-microchip' },
+  { id:'quiz',      label:'اختبار',        icon:'fa-circle-question' },
+  { id:'docs',      label:'الوثائق',       icon:'fa-file-lines' },
+];
+
+const LESSONS = [
+  { title:'النسبة (Ratio)', icon:'fa-divide', color:'brand',
+    def:'مقارنة بين كميتين من نفس النوع بقسمة إحداهما على الأخرى. تُكتب a:b أو a/b.',
+    formula:'\\text{Ratio} = a : b = \\frac{a}{b}',
+    example:'20 طالبًا و 5 معلمات → 20:5 = 4:1',
+    mistake:'الخلط بين a:b و b:a — النسبة ترتيبية.',
+    q:'بسّط 24:36', a:'2:3' },
+  { title:'التناسب (Proportion)', icon:'fa-equals', color:'leaf',
+    def:'تساوي نسبتين: a/b = c/d. حاصل ضرب الطرفين = حاصل ضرب الوسطين (ad = bc).',
+    formula:'\\frac{a}{b} = \\frac{c}{d} \\iff ad = bc',
+    example:'2/3 = x/6 → 12 = 3x → x = 4',
+    mistake:'ضرب البسط بالبسط بدلًا من الضرب التبادلي.',
+    q:'حل 4/5 = 12/x', a:'x = 15' },
+  { title:'التغير الطردي (Direct)', icon:'fa-arrow-trend-up', color:'sun',
+    def:'y يتغير طرديًا مع x إذا كان y = kx، و k ≠ 0 (ثابت التغير).',
+    formula:'y = kx \\quad\\Rightarrow\\quad k = \\frac{y}{x}',
+    example:'k = 5, x = 3 → y = 15',
+    mistake:'الاعتقاد أن الفرق ثابت (y-x) وليس النسبة (y/x).',
+    q:'إذا كان y = 7x، أوجد y عند x = 4.', a:'y = 28' },
+  { title:'التغير العكسي (Inverse)', icon:'fa-arrow-trend-down', color:'grape',
+    def:'y يتغير عكسيًا مع x إذا كان y = k/x، و x ≠ 0 (ثابت التغير العكسي).',
+    formula:'y = \\frac{k}{x} \\quad\\Rightarrow\\quad k = xy',
+    example:'k = 12, x = 4 → y = 3',
+    mistake:'السماح لـ x = 0 (غير ممكن رياضيًا).',
+    q:'إذا كان y = 20/x، أوجد y عند x = 5.', a:'y = 4' },
+  { title:'المضلعات المتشابهة', icon:'fa-shapes', color:'brand',
+    def:'زوايا متناظرة متساوية + أضلاع متناظرة متناسبة. النسبة الثابتة هي معامل التشابه k.',
+    formula:'k = \\frac{a_2}{a_1},\\quad \\frac{P_2}{P_1}=k,\\quad \\frac{A_2}{A_1}=k^2',
+    example:'مستطيلان 4×3 و 8×6 → k = 2، نسبة المساحة = 4',
+    mistake:'تناسب ضلعين فقط دون التحقق من جميع الأضلاع.',
+    q:'مربعان ضلعاهما 2 و 6 — ما نسبة المساحة؟', a:'k² = 9' },
+  { title:'تشابه المثلثات', icon:'fa-play', color:'leaf',
+    def:'حالات التشابه: AA (زاويتان)، SAS (ضلعان والزاوية المحصورة)، SSS (ثلاثة أضلاع).',
+    formula:'\\triangle ABC \\sim \\triangle DEF \\iff \\frac{AB}{DE}=\\frac{BC}{EF}=\\frac{AC}{DF}',
+    example:'مثلثان بزوايا 50° و 60° → متشابهان بـ AA',
+    mistake:'استخدام SSA (زاوية غير محصورة) كحالة تشابه — غير صحيحة.',
+    q:'إذا تساوت زاويتان في مثلثين — أي حالة؟', a:'AA' },
+  { title:'معامل التشابه (Scale Factor)', icon:'fa-expand', color:'sun',
+    def:'k = البعد في الشكل الثاني ÷ البعد المناظر في الأول.',
+    formula:'P_2 = k\\cdot P_1,\\quad A_2 = k^2 \\cdot A_1',
+    example:'نموذج 8 سم، k = 15 → الحقيقي 120 سم',
+    mistake:'ضرب المساحة في k بدلًا من k².',
+    q:'إذا تضاعف ضلع مربع — ما نسبة مساحته؟', a:'4' },
+  { title:'تطبيقات المنهج', icon:'fa-microchip', color:'brand',
+    def:'طريقة الظل (Thales)، طريقة المرآة، النموذج المصغّر.',
+    formula:'\\frac{H}{h}=\\frac{L}{l},\\quad H = \\frac{h \\cdot L}{l}',
+    example:'عصا 1.5م/ظل 2م، ظل برج 30م → H = 22.5م',
+    mistake:'استخدام القياسات في وحدات مختلفة دون توحيدها.',
+    q:'عصا 2م وظلها 3م، برج ظله 30م → ارتفاعه؟', a:'20م' },
+];
+
+const QUIZ = [
+  { q:'بسّط النسبة 18:27', opts:['3:2','2:3','6:9','9:6'], correct:1 },
+  { q:'حل x/5 = 12/20', opts:['2','3','4','6'], correct:1 },
+  { q:'إذا y = kx و y = 15 عند x = 3، فما k؟', opts:['3','5','12','45'], correct:1 },
+  { q:'إذا xy = 24 (عكسي)، فما y عند x = 6؟', opts:['3','4','6','12'], correct:1 },
+  { q:'مضلعان متشابهان k = 2، نسبة المساحة؟', opts:['2','4','6','8'], correct:1 },
+  { q:'أي حالة تعتمد على زاويتين؟', opts:['SSS','SAS','AA','RHS'], correct:2 },
+  { q:'مجموع زوايا المثلث =', opts:['90°','180°','270°','360°'], correct:1 },
+  { q:'في y = k/x، ما القيمة الممنوعة لـ x؟', opts:['1','0','−1','0.5'], correct:1 },
+  { q:'طريقة المرآة تعتمد على تشابه المثلثات. إذا كان بعد الشخص عن المرآة 1.2م، وبعد الشجرة 6م، وطول الشخص 1.5م، فما ارتفاع الشجرة؟', opts:['6.5م','7.5م','8م','9م'], correct:1 },
+  { q:'إذا كان ثابت التغير الطردي k = 4، و x = 5، فما قيمة y؟', opts:['9','20','1.25','25'], correct:1 },
+];
+
+const TEST_CASES = [
+  ['TC-01','تحقق من التناسب (متكافئتين)','2,4,3,6','النسبتان متكافئتان','✅'],
+  ['TC-02','حل التناسب لـ d','a=2, b=4, c=3','d = 6','✅'],
+  ['TC-03','التغير الطردي','k=5, x=3','y = 15','✅'],
+  ['TC-04','التغير العكسي','k=12, x=4','y = 3','✅'],
+  ['TC-05','تشابه AA','زوايا 50° و 60°','مثلثان متشابهان','✅'],
+  ['TC-06','طريقة المرآة','شخص 1.5م (بعد 1.2م)، شجرة (بعد 6م)','7.5 م','✅'],
+  ['TC-07','ارتفاع برج بالظل','عصا 1م/ظل 0.5م، برج ظله 10م','20 م','✅'],
+  ['TC-08','منع القسمة على صفر','x = 0','رسالة خطأ','✅'],
+  ['TC-09','معامل تشابه المضلعات','2,3 و 4,6','k = 2','✅'],
+  ['TC-10','نموذج مصغّر','k=10, length=20','200 cm','✅'],
+];
+
+const CHECKLIST = [
+  'خطة الموقع وسيناريو الاستخدام',
+  'المحتوى التعليمي الكامل (عربي + مصطلحات إنجليزية)',
+  'هيكل الصفحات والتنقل (SPA + NavBar تفاعلي)',
+  'التصميم: Responsive + RTL + Dark Mode + ألوان WE',
+  'الكود الكامل (HTML + CSS + JS في ملف واحد)',
+  'بيانات تجريبية وأمثلة رقمية محلولة',
+  'الحسابات والتحقق من صحتها',
+  'اختبارات القبول (Test Cases)',
+  'README للتشغيل والتسليم',
+  'نص تقديم شفهي (Presentation Script)',
+  'قائمة تسليم نهائية (Checklist)',
+];
+
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const colorMap = {
+  brand: 'bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-200',
+  leaf:  'bg-leaf-400/15 text-leaf-600 dark:bg-leaf-400/10 dark:text-leaf-400',
+  sun:   'bg-sun-400/15 text-sun-600 dark:bg-sun-400/10 dark:text-sun-400',
+  grape: 'bg-grape-500/15 text-grape-600 dark:bg-grape-500/10 dark:text-grape-500',
+};
+
+function renderNav(){
+  const html = NAV.map(n => `
+    <button data-nav="${n.id}" class="nav-item px-3 py-2 rounded-lg text-sm font-medium text-ink-700 dark:text-ink-100 hover:bg-ink-100 dark:hover:bg-ink-800 transition flex items-center gap-2">
+      <i class="fa-solid ${n.icon} text-xs opacity-70"></i>${n.label}
+    </button>`).join('');
+  $('#desktop-nav').innerHTML = html;
+  $('#mobileNav').innerHTML = NAV.map(n => `
+    <button data-nav="${n.id}" class="nav-item px-4 py-3 rounded-xl bg-ink-100 dark:bg-ink-800 text-sm font-medium flex items-center gap-2">
+      <i class="fa-solid ${n.icon}"></i>${n.label}
+    </button>`).join('');
+}
+
+function viewHome(){
+  return `
+  <section class="relative overflow-hidden rounded-3xl mb-12">
+    <div class="blob w-72 h-72 bg-brand-500 -top-10 -right-10"></div>
+    <div class="blob w-72 h-72 bg-sun-500 -bottom-10 -left-10"></div>
+    <div class="relative bg-gradient-to-br from-brand-900 via-brand-800 to-brand-700 dark:from-ink-900 dark:via-brand-900 dark:to-ink-900 rounded-3xl p-8 md:p-16 text-white text-center shadow-glow">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur text-sm font-medium mb-6">
+        <i class="fa-solid fa-star text-sun-400"></i>
+        مشروع Capstone · الرياضيات التطبيقية
+      </div>
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
+        معمل <span class="text-sun-400">النسبة</span> والتشابه <span class="text-brand-200">الرقمي</span>
+      </h1>
+      <p class="text-lg md:text-xl text-brand-100/90 max-w-3xl mx-auto mb-8">
+        Smart Ratio &amp; Similarity Lab — نُحوِّل مفاهيم الوحدة الأولى إلى أدوات تكنولوجية لحل مشكلات القياس غير المباشر.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 mb-8">
+        <span class="px-4 py-2 rounded-xl bg-white/10 backdrop-blur text-sm">🏫 WE للتكنولوجيا التطبيقية</span>
+        <span class="px-4 py-2 rounded-xl bg-white/10 backdrop-blur text-sm">👥 مجموعة 40626123</span>
+        <span class="px-4 py-2 rounded-xl bg-white/10 backdrop-blur text-sm">📚 Unit 1: Ratio &amp; Similarity</span>
+      </div>
+      <div class="max-w-2xl mx-auto p-6 rounded-2xl bg-white/10 backdrop-blur border border-white/20">
+        <p class="text-xs font-bold text-sun-400 mb-2">❓ السؤال الرئيسي</p>
+        <p class="text-lg font-bold">كيف يمكن للنسبة والتناسب وتشابه المثلثات أن يحوِّلا صورة رقمية إلى قياس حقيقي؟</p>
+      </div>
+      <div class="mt-10 flex flex-wrap justify-center gap-3">
+        <button data-nav="theory" class="px-6 py-3 rounded-xl bg-white text-brand-800 font-bold hover:bg-brand-50 transition shadow-lg flex items-center gap-2">
+          <i class="fa-solid fa-book-open"></i> ابدأ التعلم
+        </button>
+        <button data-nav="tech" class="px-6 py-3 rounded-xl bg-sun-500 hover:bg-sun-600 text-white font-bold transition shadow-lg flex items-center gap-2">
+          <i class="fa-solid fa-microchip"></i> جرّب التطبيقات
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-16">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl md:text-3xl font-black mb-2">ماذا ستتعلم؟</h2>
+      <p class="text-ink-700 dark:text-ink-100/70">أربع ركائز أساسية في وحدة Ratio &amp; Similarity</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      ${[
+        {t:'النسبة', en:'Ratio', d:'مقارنة كميتين بالقسمة', i:'fa-divide', c:'brand'},
+        {t:'التناسب', en:'Proportion', d:'تساوي نسبتين والضرب التبادلي', i:'fa-equals', c:'leaf'},
+        {t:'التغير', en:'Variation', d:'مباشر (y=kx) وعكسي (y=k/x)', i:'fa-chart-simple', c:'sun'},
+        {t:'التشابه', en:'Similarity', d:'مضلعات ومثلثات + Scale Factor', i:'fa-shapes', c:'grape'},
+      ].map(x => `
+        <div class="card bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+          <div class="w-12 h-12 rounded-xl ${colorMap[x.c]} flex items-center justify-center mb-4">
+            <i class="fa-solid ${x.i} text-lg"></i>
+          </div>
+          <h3 class="font-black text-lg mb-1">${x.t}</h3>
+          <p class="text-xs font-bold text-ink-700/60 dark:text-ink-100/50 mb-3">${x.en}</p>
+          <p class="text-sm text-ink-700 dark:text-ink-100/70">${x.d}</p>
+        </div>
+      `).join('')}
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-5">
+    ${[
+      {t:'📚 المفاهيم', d:'8 دروس مع أمثلة وأخطاء شائعة', n:'theory', c:'from-brand-600 to-brand-800'},
+      {t:'🧪 المختبرات', d:'5 أدوات تفاعلية شغالة بالكامل', n:'ratio', c:'from-leaf-500 to-leaf-600'},
+      {t:'🖨️ الوثائق', d:'التقرير الكامل + Checklist التسليم', n:'docs', c:'from-sun-500 to-sun-600'},
+    ].map(x => `
+      <button data-nav="${x.n}" class="card text-right p-6 rounded-2xl bg-gradient-to-br ${x.c} text-white shadow-glow hover:scale-[1.02]">
+        <h3 class="font-black text-xl mb-2">${x.t}</h3>
+        <p class="text-sm text-white/85">${x.d}</p>
+        <div class="mt-4 text-sm font-bold opacity-90">← افتح</div>
+      </button>
+    `).join('')}
+  </section>`;
+}
+
+function viewTheory(){
+  return `
+  <div class="mb-10 text-center">
+    <h1 class="text-3xl md:text-4xl font-black mb-2"><i class="fa-solid fa-book-open text-brand-600 ml-2"></i> المفاهيم الرياضية</h1>
+    <p class="text-ink-700 dark:text-ink-100/70">8 مفاهيم مشروحة بأمثلة وأخطاء شائعة</p>
+  </div>
+  <div class="grid md:grid-cols-2 gap-6">
+    ${LESSONS.map((L, i) => `
+      <article class="card bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-11 h-11 rounded-xl ${colorMap[L.color]} flex items-center justify-center">
+            <i class="fa-solid ${L.icon}"></i>
+          </div>
+          <div><h3 class="font-black text-lg">${i+1}. ${L.title}</h3></div>
+        </div>
+        <p class="text-sm text-ink-700 dark:text-ink-100/80 mb-3">${L.def}</p>
+        <div class="bg-brand-50 dark:bg-brand-900/20 rounded-xl p-3 text-center mb-3 border border-brand-100 dark:border-brand-800">
+          <span class="text-xs font-bold text-brand-700 dark:text-brand-200">الصيغة</span>
+          <div class="mt-1 text-sm">${L.formula.startsWith('$') ? L.formula : '$'+L.formula+'$'}</div>
+        </div>
+        <div class="bg-leaf-400/10 dark:bg-leaf-400/5 rounded-xl p-3 mb-2 border-r-4 border-leaf-500 text-sm">
+          <span class="font-bold text-leaf-600">✅ مثال:</span> ${L.example}
+        </div>
+        <div class="bg-red-50 dark:bg-red-900/20 rounded-xl p-3 mb-2 border-r-4 border-red-500 text-sm">
+          <span class="font-bold text-red-600 dark:text-red-400">⚠️ خطأ شائع:</span> ${L.mistake}
+        </div>
+        <details class="bg-sun-400/10 rounded-xl p-3 border-r-4 border-sun-500 text-sm cursor-pointer">
+          <summary class="font-bold text-sun-600 dark:text-sun-400">📝 سؤال سريع</summary>
+          <p class="mt-2">${L.q}</p>
+          <p class="mt-1 font-bold text-leaf-600">✅ ${L.a}</p>
+        </details>
+      </article>
+    `).join('')}
+  </div>`;
+}
+
+function viewRatio(){
+  return `
+  <div class="mb-10 text-center">
+    <h1 class="text-3xl md:text-4xl font-black mb-2"><i class="fa-solid fa-scale-balanced text-brand-600 ml-2"></i> مختبر النسبة والتناسب</h1>
+    <p class="text-ink-700 dark:text-ink-100/70">تحقق من التكافؤ أو حل التناسب خطوة بخطوة</p>
+  </div>
+  <div class="grid lg:grid-cols-2 gap-6">
+    <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+      <h2 class="font-black text-lg mb-4">🔍 تحقق من التناسب</h2>
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        ${['a','b','c','d'].map(id => `
+          <div>
+            <label class="text-xs font-bold mb-1 block text-ink-700 dark:text-ink-100/70">${id}</label>
+            <input id="r-${id}" type="number" step="any" min="0.01" value="${{a:2,b:4,c:3,d:6}[id]}" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800 text-sm" />
+          </div>`).join('')}
+      </div>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button data-act="ratio-check" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold transition">تحقق</button>
+        <button data-act="ratio-solve" class="px-4 py-2 rounded-xl bg-leaf-500 hover:bg-leaf-600 text-white text-sm font-bold transition">حل لـ d</button>
+        <button data-act="ratio-random" class="px-4 py-2 rounded-xl bg-sun-500 hover:bg-sun-600 text-white text-sm font-bold transition">🎲 عشوائي</button>
+        <button data-act="ratio-clear" class="px-4 py-2 rounded-xl bg-ink-200 dark:bg-ink-800 text-sm font-bold transition">مسح</button>
+      </div>
+      <div id="ratio-out" class="bg-ink-50 dark:bg-ink-950 rounded-xl p-4 text-sm min-h-[80px] border-2 border-dashed border-ink-200 dark:border-ink-800 flex items-center justify-center text-ink-700/60 dark:text-ink-100/50">
+        النتيجة ستظهر هنا...
+      </div>
+    </div>
+    <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+      <h2 class="font-black text-lg mb-4">📋 السجل</h2>
+      <div id="ratio-hist" class="space-y-2 text-sm max-h-72 overflow-y-auto"></div>
+      <button data-act="ratio-hist-clear" class="mt-4 text-red-500 text-xs font-bold hover:underline">مسح السجل</button>
+    </div>
+  </div>`;
+}
+
+function viewVariation(){
+  return `
+  <div class="mb-10 text-center">
+    <h1 class="text-3xl md:text-4xl font-black mb-2"><i class="fa-solid fa-chart-line text-brand-600 ml-2"></i> محاكي التغير</h1>
+    <p class="text-ink-700 dark:text-ink-100/70">قارن بين التغير الطردي والعكسي بالرسم البياني</p>
+  </div>
+  <div class="grid lg:grid-cols-2 gap-6">
+    <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+      <div class="flex gap-2 mb-4">
+        <button data-act="tab-var" data-tab="direct" class="tab-btn flex-1 px-4 py-2 rounded-xl bg-ink-100 dark:bg-ink-800 text-sm font-bold tab-active">طردي (Direct)</button>
+        <button data-act="tab-var" data-tab="inverse" class="tab-btn flex-1 px-4 py-2 rounded-xl bg-ink-100 dark:bg-ink-800 text-sm font-bold">عكسي (Inverse)</button>
+      </div>
+      <div class="space-y-3 mb-4">
+        <div><label class="text-xs font-bold block mb-1">ثابت التغير k</label><input id="vk" type="number" step="any" min="0.1" value="5" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+        <div><label class="text-xs font-bold block mb-1">قيمة x</label><input id="vx" type="number" step="any" value="3" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+      </div>
+      <button data-act="var-calc" class="w-full px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold transition">احسب</button>
+      <div id="var-out" class="mt-4 bg-ink-50 dark:bg-ink-950 rounded-xl p-4 text-sm min-h-[60px] flex items-center justify-center text-ink-700/60 dark:text-ink-100/50">النتيجة ستظهر هنا...</div>
+      <div id="var-table" class="mt-4 overflow-x-auto"></div>
+    </div>
+    <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+      <h3 class="font-bold mb-4">الرسم البياني</h3>
+      <canvas id="varChart" height="220"></canvas>
+    </div>
+  </div>`;
+}
+
+function viewPolygons(){
+  return `
+  <div class="mb-10 text-center">
+    <h1 class="text-3xl md:text-4xl font-black mb-2"><i class="fa-solid fa-draw-polygon text-brand-600 ml-2"></i> مستكشف المضلعات المتشابهة</h1>
+    <p class="text-ink-700 dark:text-ink-100/70">احسب معامل التشابه ونسبة المساحة</p>
+  </div>
+  <div class="grid lg:grid-cols-2 gap-6">
+    <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+      <h2 class="font-black text-lg mb-4">المدخلات</h2>
+      <div class="space-y-3 mb-4">
+        <div><label class="text-xs font-bold block mb-1">أضلاع المضلع الأول (فاصلة)</label><input id="p1" type="text" value="4,3" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+        <div><label class="text-xs font-bold block mb-1">أضلاع المضلع الثاني (فاصلة)</label><input id="p2" type="text" value="8,6" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+      </div>
+      <button data-act="poly-check" class="w-full px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold transition">تحقق</button>
+      <div id="poly-out" class="mt-4 bg-ink-50 dark:bg-ink-950 rounded-xl p-4 text-sm min-h-[100px]"></div>
+    </div>
+    <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800 flex items-center justify-center">
+      <div id="poly-svg" class="w-full flex justify-center"></div>
+    </div>
+  </div>`;
+}
+
+function viewTriangle(){
+  return `
+  <div class="mb-10 text-center">
+    <h1 class="text-3xl md:text-4xl font-black mb-2"><i class="fa-solid fa-play text-brand-600 ml-2"></i> حاسبة تشابه المثلثات</h1>
+    <p class="text-ink-700 dark:text-ink-100/70">AA / SAS / SSS</p>
+  </div>
+  <div class="grid lg:grid-cols-2 gap-6">
+    <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+      <h2 class="font-black text-lg mb-4">اختر الحالة</h2>
+      <select id="tri-case" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800 mb-4">
+        <option value="AA">AA — زاويتان</option>
+        <option value="SAS">SAS — ضلعان والزاوية المحصورة</option>
+        <option value="SSS">SSS — ثلاثة أضلاع</option>
+      </select>
+      <div id="tri-inputs" class="space-y-2 mb-4"></div>
+      <button data-act="tri-check" class="w-full px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold transition">تحقق</button>
+    </div>
+    <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+      <h2 class="font-black text-lg mb-4">النتيجة</h2>
+      <div id="tri-out" class="bg-ink-50 dark:bg-ink-950 rounded-xl p-4 text-sm min-h-[150px] text-ink-700/60 dark:text-ink-100/50">النتيجة ستظهر هنا...</div>
+    </div>
+  </div>`;
+}
+
+function viewTech(){
+  return `
+  <div class="mb-10 text-center">
+    <h1 class="text-3xl md:text-4xl font-black mb-2"><i class="fa-solid fa-microchip text-brand-600 ml-2"></i> تطبيقات المنهج</h1>
+    <p class="text-ink-700 dark:text-ink-100/70">ثلاثة تطبيقات واقعية من كتاب الوزارة</p>
+  </div>
+  <div class="flex flex-wrap gap-2 mb-6">
+    <button data-act="tab-tech" data-tab="tower" class="tab-btn px-5 py-2 rounded-xl bg-ink-100 dark:bg-ink-800 text-sm font-bold tab-active">📏 طريقة الظل</button>
+    <button data-act="tab-tech" data-tab="mirror" class="tab-btn px-5 py-2 rounded-xl bg-ink-100 dark:bg-ink-800 text-sm font-bold">🪞 طريقة المرآة</button>
+    <button data-act="tab-tech" data-tab="model" class="tab-btn px-5 py-2 rounded-xl bg-ink-100 dark:bg-ink-800 text-sm font-bold">📦 النموذج المصغّر</button>
+  </div>
+
+  <!-- Shadow Method -->
+  <div id="tech-tower" class="tab-content bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+    <h3 class="font-black text-lg mb-2">📏 قياس ارتفاع باستخدام الظل (Thales Method)</h3>
+    <p class="text-sm text-ink-700 dark:text-ink-100/70 mb-4">استخدم تشابه المثلثات الناتج عن أشعة الشمس وظل جسم معلوم الارتفاع.</p>
+    <div class="grid md:grid-cols-3 gap-3 mb-4">
+      <div><label class="text-xs font-bold block mb-1">ارتفاع العصا (م)</label><input id="tw-h" type="number" step="any" value="1" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+      <div><label class="text-xs font-bold block mb-1">طول ظل العصا (م)</label><input id="tw-s" type="number" step="any" value="0.5" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+      <div><label class="text-xs font-bold block mb-1">طول ظل البرج (م)</label><input id="tw-L" type="number" step="any" value="10" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+    </div>
+    <button data-act="tw-calc" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold transition">احسب</button>
+    <div id="tw-out" class="mt-4 bg-ink-50 dark:bg-ink-950 rounded-xl p-4 text-sm min-h-[80px] text-ink-700/60 dark:text-ink-100/50">النتيجة ستظهر هنا...</div>
+  </div>
+
+  <!-- Mirror Method -->
+  <div id="tech-mirror" class="tab-content section-hidden bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+    <h3 class="font-black text-lg mb-2">🪞 قياس ارتفاع شجرة/زرافة باستخدام المرآة</h3>
+    <p class="text-sm text-ink-700 dark:text-ink-100/70 mb-4">زاوية السقوط = زاوية الانعكاس (تشابه المثلثات).</p>
+    <div class="grid md:grid-cols-3 gap-3 mb-4">
+      <div><label class="text-xs font-bold block mb-1">طول الشخص (م)</label><input id="mr-h" type="number" step="any" value="1.5" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+      <div><label class="text-xs font-bold block mb-1">بعد الشخص عن المرآة (م)</label><input id="mr-d" type="number" step="any" value="1.2" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+      <div><label class="text-xs font-bold block mb-1">بعد الشجرة عن المرآة (م)</label><input id="mr-L" type="number" step="any" value="6" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+    </div>
+    <button data-act="mr-calc" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold transition">احسب</button>
+    <div id="mr-out" class="mt-4 bg-ink-50 dark:bg-ink-950 rounded-xl p-4 text-sm min-h-[80px] text-ink-700/60 dark:text-ink-100/50">النتيجة ستظهر هنا...</div>
+  </div>
+
+  <!-- Scale Model -->
+  <div id="tech-model" class="tab-content section-hidden bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+    <h3 class="font-black text-lg mb-2">📦 تحويل النموذج المصغّر (Scale Model)</h3>
+    <p class="text-sm text-ink-700 dark:text-ink-100/70 mb-4">استخدم معامل التشابه k لتحويل أبعاد القطعة الميكانيكية.</p>
+    <div class="grid md:grid-cols-2 gap-3 mb-4">
+      <div><label class="text-xs font-bold block mb-1">معامل التشابه k</label><input id="md-k" type="number" step="any" value="10" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+      <div><label class="text-xs font-bold block mb-1">طول النموذج (سم)</label><input id="md-L" type="number" step="any" value="20" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" /></div>
+    </div>
+    <button data-act="md-calc" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold transition">احسب</button>
+    <div id="md-out" class="mt-4 bg-ink-50 dark:bg-ink-950 rounded-xl p-4 text-sm min-h-[80px] text-ink-700/60 dark:text-ink-100/50">النتيجة ستظهر هنا...</div>
+  </div>`;
+}
+
+function viewQuiz(){
+  return `
+  <div class="mb-10 text-center">
+    <h1 class="text-3xl md:text-4xl font-black mb-2"><i class="fa-solid fa-circle-question text-brand-600 ml-2"></i> اختبار سريع</h1>
+    <p class="text-ink-700 dark:text-ink-100/70">10 أسئلة · تصحيح فوري مع الشرح</p>
+  </div>
+  <div id="quiz-box" class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800 max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <span class="text-sm font-bold text-ink-700 dark:text-ink-100/70">السؤال <span id="q-num">1</span> / 10</span>
+      <span class="text-sm font-bold text-brand-600">النقاط: <span id="q-score">0</span></span>
+    </div>
+    <div class="w-full h-2 rounded-full bg-ink-200 dark:bg-ink-800 mb-6 overflow-hidden">
+      <div id="q-bar" class="h-full bg-gradient-to-r from-brand-500 to-brand-700 transition-all" style="width:0%"></div>
+    </div>
+    <h2 id="q-text" class="text-xl font-black mb-6"></h2>
+    <div id="q-opts" class="space-y-2 mb-4"></div>
+    <div id="q-feedback" class="mb-4"></div>
+    <button id="q-next" class="w-full px-4 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold transition section-hidden">التالي →</button>
+    <button id="q-restart" class="w-full px-4 py-3 rounded-xl bg-sun-500 hover:bg-sun-600 text-white font-bold transition section-hidden">🔄 إعادة</button>
+  </div>`;
+}
+
+function viewDocs(){
+  return `
+  <div class="mb-10 text-center">
+    <h1 class="text-3xl md:text-4xl font-black mb-2"><i class="fa-solid fa-file-lines text-brand-600 ml-2"></i> وثائق المشروع</h1>
+    <p class="text-ink-700 dark:text-ink-100/70">حزمة التسليم الكاملة</p>
+  </div>
+  <div class="grid md:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+      <h2 class="font-black text-lg mb-3">📘 README</h2>
+      <ul class="text-sm space-y-2 text-ink-700 dark:text-ink-100/80 list-disc list-inside">
+        <li><b>الملف:</b> index.html (واحد يشمل كل شيء)</li>
+        <li><b>التشغيل:</b> افتحه في أي متصفح حديث</li>
+        <li><b>المكتبات:</b> Tailwind, KaTeX, Chart.js, Font Awesome (CDN)</li>
+        <li><b>بدون Backend</b> — يعمل على المتصفح فقط</li>
+        <li><b>localStorage</b> لحفظ سجل النسب</li>
+        <li><b>الطباعة:</b> Ctrl+P أو زر 🖨️</li>
+      </ul>
+    </div>
+    <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+      <h2 class="font-black text-lg mb-3">🎤 نص التقديم</h2>
+      <div class="text-sm text-ink-700 dark:text-ink-100/80 leading-relaxed">
+        <p>السلام عليكم، نحن مجموعة <b>40626123</b> من WE للتكنولوجيا التطبيقية.</p>
+        <p class="mt-2">مشروعنا: <b>معمل النسبة والتشابه</b> — يربط مفاهيم الوحدة الأولى بتطبيقات تكنولوجية واقعية.</p>
+        <p class="mt-2">بنينا موقعًا تفاعليًا يشمل 8 مفاهيم، 5 أدوات، اختبارًا، ووثائق كاملة.</p>
+        <p class="mt-2">السيناريو الرئيسي: تطبيق طريقة الظل وطريقة المرآة والنموذج المصغّر — كما وردت في كتاب الوزارة.</p>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800 mb-6">
+    <h2 class="font-black text-lg mb-3">🧪 اختبارات القبول</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-brand-50 dark:bg-brand-900/20 text-right">
+            <th class="p-2 rounded-r-lg">المعرف</th><th class="p-2">الوصف</th><th class="p-2">المدخلات</th><th class="p-2">المتوقع</th><th class="p-2 rounded-l-lg">الحالة</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${TEST_CASES.map(tc => `
+            <tr class="border-b border-ink-200/60 dark:border-ink-800">
+              <td class="p-2 font-bold">${tc[0]}</td>
+              <td class="p-2">${tc[1]}</td>
+              <td class="p-2 font-mono text-xs">${tc[2]}</td>
+              <td class="p-2">${tc[3]}</td>
+              <td class="p-2 text-center">${tc[4]}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
+    <h2 class="font-black text-lg mb-3">✅ Checklist التسليم</h2>
+    <div class="grid md:grid-cols-2 gap-2">
+      ${CHECKLIST.map((c, i) => `
+        <div class="flex items-center gap-2 p-2 rounded-xl bg-leaf-400/10 dark:bg-leaf-400/5 text-sm">
+          <i class="fa-solid fa-check-circle text-leaf-500"></i>
+          <span>${i+1}. ${c}</span>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+const VIEWS = {
+  home: viewHome, theory: viewTheory, ratio: viewRatio, variation: viewVariation,
+  polygons: viewPolygons, triangle: viewTriangle, tech: viewTech,
+  quiz: viewQuiz, docs: viewDocs,
+};
+
+let current = 'home';
+let varChart = null;
+let varMode = 'direct';
+let quizState = { idx:0, score:0 };
+
+function navigate(id){
+  if (!VIEWS[id]) id = 'home';
+  current = id;
+  $('#app').innerHTML = VIEWS[id]();
+  $$('.nav-item').forEach(b => b.classList.toggle('nav-active', b.dataset.nav === id));
+  $('#mobileNav').classList.add('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (typeof renderMathInElement !== 'undefined') {
+    try {
+      renderMathInElement($('#app'), {
+        delimiters: [
+          {left:'$$', right:'$$', display:true},
+          {left:'$', right:'$', display:false},
+          {left:'\\(', right:'\\)', display:false},
+          {left:'\\[', right:'\\]', display:true},
+        ], throwOnError:false,
+      });
+    } catch(e) {}
+  }
+  if (id === 'ratio') loadRatioHistory();
+  if (id === 'variation') setTimeout(renderVarChart, 50);
+  if (id === 'triangle') setTimeout(renderTriangleInputs, 20);
+  if (id === 'quiz') setTimeout(startQuiz, 20);
+}
+
+document.addEventListener('click', (e) => {
+  const navBtn = e.target.closest('[data-nav]');
+  if (navBtn) { e.preventDefault(); navigate(navBtn.dataset.nav); return; }
+});
+
+$('#mobileBtn').onclick = () => $('#mobileNav').classList.toggle('hidden');
+$('#darkBtn').onclick = () => {
+  document.documentElement.classList.toggle('dark');
+  const isDark = document.documentElement.classList.contains('dark');
+  $('#darkIcon').className = `fa-solid ${isDark ? 'fa-sun' : 'fa-moon'} text-ink-700 dark:text-ink-100`;
+  localStorage.setItem('dark', isDark);
+};
+$('#printBtn').onclick = () => window.print();
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-act]');
+  if (!btn) return;
+  const act = btn.dataset.act;
+
+  if (act === 'ratio-check') {
+    const a = +$('#r-a').value, b = +$('#r-b').value, c = +$('#r-c').value, d = +$('#r-d').value;
+    const out = $('#ratio-out');
+    if (!a || !b || !c || !d) return out.innerHTML = err('يرجى إدخال جميع القيم الموجبة');
+    if ([a,b,c,d].some(x => x <= 0)) return out.innerHTML = err('القيم يجب أن تكون موجبة');
+    const ok = Math.abs(a/b - c/d) < 1e-9;
+    out.innerHTML = ok
+      ? okM(`النسبتان متكافئتان: ${a}/${b} = ${c}/${d} = ${(a/b).toFixed(4)}`)
+      : err(`النسبتان غير متكافئتين: ${a}/${b}=${(a/b).toFixed(4)} ≠ ${c}/${d}=${(c/d).toFixed(4)}`);
+    saveRatioHistory(a,b,c,d, (a/b).toFixed(4));
+    return;
+  }
+  if (act === 'ratio-solve') {
+    const a = +$('#r-a').value, b = +$('#r-b').value, c = +$('#r-c').value;
+    const out = $('#ratio-out');
+    if (!a || !b || !c) return out.innerHTML = err('أدخل a, b, c أولاً');
+    if (a <= 0 || b <= 0 || c <= 0) return out.innerHTML = err('القيم يجب أن تكون موجبة');
+    const d = (b*c)/a;
+    $('#r-d').value = d.toFixed(4);
+    out.innerHTML = `<div class="text-right">
+      <p class="font-bold text-leaf-600 mb-2">✅ تم إيجاد d</p>
+      <p class="text-xs mb-1">الضرب التبادلي: ${a} × d = ${b} × ${c}</p>
+      <p class="text-xs mb-1">d = (${b} × ${c}) ÷ ${a} = <b>${d.toFixed(4)}</b></p>
+    </div>`;
+    saveRatioHistory(a,b,c,d, d.toFixed(4));
+    return;
+  }
+  if (act === 'ratio-random') {
+    const a = Math.floor(Math.random()*8)+2;
+    const b = Math.floor(Math.random()*8)+2;
+    const c = Math.floor(Math.random()*8)+2;
+    $('#r-a').value = a; $('#r-b').value = b; $('#r-c').value = c;
+    $('#r-d').value = (b*c)/a;
+    $('#ratio-out').innerHTML = `<p class="text-brand-600">تم تحميل مثال.</p>`;
+    return;
+  }
+  if (act === 'ratio-clear') {
+    ['a','b','c','d'].forEach(x => $('#r-'+x).value = '');
+    $('#ratio-out').innerHTML = `<p class="text-ink-700/60">تم المسح</p>`;
+    return;
+  }
+  if (act === 'ratio-hist-clear') {
+    localStorage.removeItem('ratioHist');
+    loadRatioHistory();
+    return;
+  }
+
+  if (act === 'tab-var') {
+    varMode = btn.dataset.tab;
+    $$('.tab-btn[data-act="tab-var"]').forEach(b => b.classList.toggle('tab-active', b.dataset.tab === varMode));
+    renderVarChart();
+    return;
+  }
+  if (act === 'var-calc') {
+    const k = +$('#vk').value, x = +$('#vx').value;
+    const out = $('#var-out');
+    if (isNaN(k) || isNaN(x) || k === 0) return out.innerHTML = err('أدخل قيم صحيحة، k ≠ 0');
+    if (varMode === 'inverse' && x === 0) return out.innerHTML = err('x لا يمكن أن يكون صفرًا في التغير العكسي');
+    const y = varMode === 'direct' ? k*x : k/x;
+    out.innerHTML = `<div class="text-right w-full">
+      <p class="font-bold text-leaf-600">✅ النتيجة</p>
+      <p class="text-sm mt-1">y = ${varMode === 'direct' ? `${k} × ${x}` : `${k} ÷ ${x}`} = <b>${y.toFixed(4)}</b></p>
+    </div>`;
+    let html = `<table class="w-full text-xs text-center"><thead><tr class="bg-brand-50 dark:bg-brand-900/20"><th class="p-2 rounded-r-lg">x</th>`;
+    for (let i = 1; i <= 8; i++) html += `<th class="p-2">${i}</th>`;
+    html += `</tr></thead><tbody><tr><td class="p-2 font-bold bg-ink-100 dark:bg-ink-800 rounded-r-lg">y</td>`;
+    for (let i = 1; i <= 8; i++) {
+      const yy = varMode === 'direct' ? k*i : k/i;
+      html += `<td class="p-2 border-t border-ink-200 dark:border-ink-800">${yy.toFixed(2)}</td>`;
+    }
+    html += `</tr></tbody></table>`;
+    $('#var-table').innerHTML = html;
+    renderVarChart();
+    return;
+  }
+
+  if (act === 'poly-check') {
+    const s1 = $('#p1').value.split(',').map(Number).filter(n => n > 0);
+    const s2 = $('#p2').value.split(',').map(Number).filter(n => n > 0);
+    const out = $('#poly-out');
+    if (s1.length !== s2.length || s1.length < 2) {
+      out.innerHTML = err('يجب أن يكون للمضلعين نفس عدد الأضلاع (2 فأكثر)');
+      return;
+    }
+    const k = s2[0]/s1[0];
+    const similar = s1.every((v,i) => Math.abs(s2[i]/v - k) < 1e-6);
+    if (!similar) { out.innerHTML = err('❌ المضلعان غير متشابهين'); return; }
+    const p1 = s1.reduce((a,b)=>a+b,0), p2 = s2.reduce((a,b)=>a+b,0);
+    out.innerHTML = `<p class="font-bold text-leaf-600 mb-2">✅ المضلعان متشابهان</p>
+      <p class="text-xs">معامل التشابه k = <b>${k.toFixed(4)}</b></p>
+      <p class="text-xs">نسبة المحيط = <b>${(p2/p1).toFixed(4)}</b> (تساوي k)</p>
+      <p class="text-xs">نسبة المساحة = <b>${(k*k).toFixed(4)}</b> (تساوي k²)</p>`;
+    drawPolySVG(s1, s2, k);
+    return;
+  }
+
+  if (act === 'tri-check') {
+    const c = $('#tri-case').value;
+    const out = $('#tri-out');
+    let res = '', ok = false;
+    if (c === 'AA') {
+      const a1 = +$('#t-a1').value, a2 = +$('#t-a2').value;
+      const b1 = +$('#t-b1').value, b2 = +$('#t-b2').value;
+      if (a1+a2 >= 180 || b1+b2 >= 180) return out.innerHTML = err('مجموع زاويتي المثلث يجب أن يكون < 180°');
+      ok = (a1 === b1 && a2 === b2) || (a1 === b2 && a2 === b1);
+      res = ok ? '✅ متشابهان بحالة AA' : '❌ غير متشابهين';
+    } else if (c === 'SAS') {
+      const s1a = +$('#s1a').value, s1b = +$('#s1b').value, a1 = +$('#sa1').value;
+      const s2a = +$('#s2a').value, s2b = +$('#s2b').value, a2 = +$('#sa2').value;
+      if (a1 !== a2) return out.innerHTML = err('الزاويتان المحصورتان غير متساويتين');
+      ok = Math.abs(s1a/s2a - s1b/s2b) < 1e-6;
+      res = ok ? `✅ متشابهان بحالة SAS (k = ${(s2a/s1a).toFixed(4)})` : '❌ غير متشابهين — نسب الأضلاع مختلفة';
+    } else {
+      const s1 = [+$('#x1').value, +$('#x2').value, +$('#x3').value].sort((a,b)=>a-b);
+      const s2 = [+$('#y1').value, +$('#y2').value, +$('#y3').value].sort((a,b)=>a-b);
+      const r = s1.map((v,i) => s2[i]/v);
+      ok = r.every(v => Math.abs(v - r[0]) < 1e-6);
+      res = ok ? `✅ متشابهان بحالة SSS (k = ${r[0].toFixed(4)})` : '❌ غير متشابهين';
+    }
+    out.innerHTML = `<p class="${ok ? 'text-leaf-600' : 'text-red-500'} font-bold text-lg">${res}</p>`;
+    return;
+  }
+
+  if (act === 'tab-tech') {
+    const t = btn.dataset.tab;
+    $$('.tab-btn[data-act="tab-tech"]').forEach(b => b.classList.toggle('tab-active', b.dataset.tab === t));
+    ['tower','mirror','model'].forEach(x => {
+      const el = $('#tech-'+x);
+      if (el) el.classList.toggle('section-hidden', x !== t);
+    });
+    return;
+  }
+  if (act === 'tw-calc') {
+    const h = +$('#tw-h').value, s = +$('#tw-s').value, L = +$('#tw-L').value;
+    const out = $('#tw-out');
+    if (!h || !s || !L) return out.innerHTML = err('أدخل جميع القيم');
+    if (s === 0) return out.innerHTML = err('ظل العصا لا يمكن أن يكون صفرًا');
+    const H = (h/s) * L;
+    out.innerHTML = `<div class="text-right">
+      <p class="font-bold text-leaf-600 mb-2">✅ ارتفاع البرج</p>
+      <p class="text-xs mb-1">H = (${h} ÷ ${s}) × ${L}</p>
+      <p class="text-xs">H = <b>${H.toFixed(2)} متر</b></p>
+    </div>`;
+    return;
+  }
+  if (act === 'mr-calc') {
+    const h = +$('#mr-h').value, d = +$('#mr-d').value, L = +$('#mr-L').value;
+    const out = $('#mr-out');
+    if (!h || !d || !L) return out.innerHTML = err('أدخل جميع القيم');
+    if (d === 0) return out.innerHTML = err('بعد الشخص عن المرآة لا يمكن أن يكون صفرًا');
+    const H = (h/d) * L;
+    out.innerHTML = `<div class="text-right">
+      <p class="font-bold text-leaf-600 mb-2">✅ ارتفاع الشجرة</p>
+      <p class="text-xs mb-1">H = (${h} ÷ ${d}) × ${L}</p>
+      <p class="text-xs">H = <b>${H.toFixed(2)} متر</b></p>
+    </div>`;
+    return;
+  }
+  if (act === 'md-calc') {
+    const k = +$('#md-k').value, L = +$('#md-L').value;
+    const out = $('#md-out');
+    if (!k || !L) return out.innerHTML = err('أدخل جميع القيم');
+    out.innerHTML = `<div class="text-right">
+      <p class="font-bold text-leaf-600 mb-2">✅ الطول الحقيقي</p>
+      <p class="text-xs">${L} × ${k} = <b>${(L*k).toFixed(2)} سم</b></p>
+    </div>`;
+    return;
+  }
+});
+
+function err(msg){ return `<p class="text-red-500 font-bold text-sm text-center">${msg}</p>`; }
+function okM(msg){ return `<p class="text-leaf-600 font-bold text-sm text-center">${msg}</p>`; }
+
+function saveRatioHistory(a,b,c,d,res){
+  const h = JSON.parse(localStorage.getItem('ratioHist') || '[]');
+  h.unshift({a,b,c,d,res, t: new Date().toLocaleTimeString('ar-EG')});
+  if (h.length > 20) h.pop();
+  localStorage.setItem('ratioHist', JSON.stringify(h));
+  loadRatioHistory();
+}
+function loadRatioHistory(){
+  const box = $('#ratio-hist');
+  if (!box) return;
+  const h = JSON.parse(localStorage.getItem('ratioHist') || '[]');
+  if (!h.length) { box.innerHTML = `<p class="text-center text-ink-700/50 dark:text-ink-100/40 text-xs">لا يوجد سجل بعد</p>`; return; }
+  box.innerHTML = h.map(x => `
+    <div class="p-2 rounded-lg bg-ink-50 dark:bg-ink-950 border border-ink-200 dark:border-ink-800 text-xs flex justify-between gap-2">
+      <span>${x.a}:${x.b} = ${x.c}:${x.d}</span>
+      <span class="text-ink-700/50">${x.t}</span>
+    </div>`).join('');
+}
+
+function renderVarChart(){
+  const canvas = $('#varChart');
+  if (!canvas) return;
+  const k = +($('#vk')?.value || 5);
+  const xs = Array.from({length:10}, (_,i) => i+1);
+  const ys = xs.map(x => varMode === 'direct' ? k*x : k/x);
+  if (varChart) varChart.destroy();
+  varChart = new Chart(canvas.getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: xs,
+      datasets: [{
+        label: varMode === 'direct' ? 'y = kx' : 'y = k/x',
+        data: ys,
+        borderColor: varMode === 'direct' ? '#2563eb' : '#f97316',
+        backgroundColor: varMode === 'direct' ? 'rgba(37,99,235,0.1)' : 'rgba(249,115,22,0.1)',
+        fill: true, tension: 0.3, borderWidth: 3, pointRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: 'rgba(148,163,184,0.15)' } },
+        y: { beginAtZero: varMode === 'direct', grid: { color: 'rgba(148,163,184,0.15)' } }
+      }
+    }
+  });
+}
+
+function renderTriangleInputs(){
+  const c = $('#tri-case')?.value || 'AA';
+  const box = $('#tri-inputs');
+  if (!box) return;
+  const inp = (id, label, val, min='1', max='179') => `
+    <div>
+      <label class="text-xs font-bold block mb-1">${label}</label>
+      <input id="${id}" type="number" value="${val}" min="${min}" max="${max}" step="any" class="w-full px-3 py-2 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800" />
+    </div>`;
+  if (c === 'AA') {
+    box.innerHTML = `<div class="grid grid-cols-2 gap-2">
+      ${inp('t-a1','م1 زاوية 1', 50)} ${inp('t-a2','م1 زاوية 2', 60)}
+      ${inp('t-b1','م2 زاوية 1', 50)} ${inp('t-b2','م2 زاوية 2', 60)}
+    </div>`;
+  } else if (c === 'SAS') {
+    box.innerHTML = `<div class="grid grid-cols-3 gap-2">
+      ${inp('s1a','م1 ضلع 1', 4, '0.1')} ${inp('s1b','م1 ضلع 2', 6, '0.1')} ${inp('sa1','م1 زاوية', 60)}
+      ${inp('s2a','م2 ضلع 1', 2, '0.1')} ${inp('s2b','م2 ضلع 2', 3, '0.1')} ${inp('sa2','م2 زاوية', 60)}
+    </div>`;
+  } else {
+    box.innerHTML = `<div class="grid grid-cols-2 gap-2">
+      ${inp('x1','م1 ضلع 1', 3, '0.1')} ${inp('y1','م2 ضلع 1', 6, '0.1')}
+      ${inp('x2','م1 ضلع 2', 4, '0.1')} ${inp('y2','م2 ضلع 2', 8, '0.1')}
+      ${inp('x3','م1 ضلع 3', 5, '0.1')} ${inp('y3','م2 ضلع 3', 10, '0.1')}
+    </div>`;
+  }
+}
+document.addEventListener('change', (e) => {
+  if (e.target.id === 'tri-case') renderTriangleInputs();
+});
+
+function drawPolySVG(s1, s2, k){
+  const box = $('#poly-svg');
+  if (!box) return;
+  const n = s1.length;
+  const r1 = 60, r2 = Math.min(60 * k, 110);
+  const cx1 = 90, cx2 = 240, cy = 100;
+  const path = (cx, r) => {
+    let p = '';
+    for (let i = 0; i < n; i++) {
+      const a = (i/n)*2*Math.PI - Math.PI/2;
+      p += (i===0?'M':'L') + (cx + r*Math.cos(a)).toFixed(1) + ',' + (cy + r*Math.sin(a)).toFixed(1);
+    }
+    return p + 'Z';
+  };
+  box.innerHTML = `<svg viewBox="0 0 330 200" class="w-full max-w-sm">
+    <path d="${path(cx1, r1)}" fill="rgba(37,99,235,0.15)" stroke="#2563eb" stroke-width="2"/>
+    <path d="${path(cx2, r2)}" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-width="2"/>
+    <text x="${cx1}" y="190" fill="#2563eb" text-anchor="middle" font-size="12" font-weight="bold">المضلع 1</text>
+    <text x="${cx2}" y="190" fill="#f97316" text-anchor="middle" font-size="12" font-weight="bold">المضلع 2</text>
+  </svg>`;
+}
+
+function startQuiz(){
+  quizState = { idx:0, score:0 };
+  renderQuizQ();
+}
+function renderQuizQ(){
+  const q = QUIZ[quizState.idx];
+  if (!q) return endQuiz();
+  $('#q-num').textContent = quizState.idx + 1;
+  $('#q-score').textContent = quizState.score;
+  $('#q-bar').style.width = `${(quizState.idx / QUIZ.length) * 100}%`;
+  $('#q-text').textContent = q.q;
+  $('#q-opts').innerHTML = q.opts.map((o,i) => `
+    <button data-q="${i}" class="q-opt w-full text-right px-4 py-3 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800 hover:border-brand-500 transition font-medium">
+      ${String.fromCharCode(65+i)}. ${o}
+    </button>`).join('');
+  $('#q-feedback').innerHTML = '';
+  $('#q-next').classList.add('section-hidden');
+  $('#q-restart').classList.add('section-hidden');
+}
+document.addEventListener('click', (e) => {
+  const o = e.target.closest('.q-opt');
+  if (o) {
+    const idx = +o.dataset.q;
+    const q = QUIZ[quizState.idx];
+    $$('.q-opt').forEach((b,i) => {
+      b.disabled = true;
+      if (i === q.correct) b.classList.add('border-leaf-500', 'bg-leaf-400/10');
+      else if (i === idx) b.classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900/20');
+    });
+    if (idx === q.correct) {
+      quizState.score++;
+      $('#q-feedback').innerHTML = `<p class="text-leaf-600 font-bold">✅ صحيح!</p>`;
+    } else {
+      $('#q-feedback').innerHTML = `<p class="text-red-500 font-bold">❌ الإجابة الصحيحة: ${String.fromCharCode(65+q.correct)}. ${q.opts[q.correct]}</p>`;
+    }
+    $('#q-score').textContent = quizState.score;
+    $('#q-next').classList.remove('section-hidden');
+  }
+  if (e.target.id === 'q-next') {
+    quizState.idx++;
+    if (quizState.idx >= QUIZ.length) endQuiz();
+    else renderQuizQ();
+  }
+  if (e.target.id === 'q-restart') startQuiz();
+});
+function endQuiz(){
+  $('#q-bar').style.width = '100%';
+  $('#q-text').textContent = '🎉 انتهى الاختبار!';
+  $('#q-opts').innerHTML = `<div class="text-center p-6 rounded-2xl bg-brand-50 dark:bg-brand-900/20">
+    <p class="text-4xl font-black text-brand-700 dark:text-brand-200 mb-2">${quizState.score} / ${QUIZ.length}</p>
+    <p class="text-sm text-ink-700 dark:text-ink-100/70">${quizState.score >= 7 ? '🏆 ممتاز!' : quizState.score >= 5 ? '👍 جيد' : '💪 حاول مرة أخرى'}</p>
+  </div>`;
+  $('#q-feedback').innerHTML = '';
+  $('#q-next').classList.add('section-hidden');
+  $('#q-restart').classList.remove('section-hidden');
+}
+
+function init(){
+  if (localStorage.getItem('dark') === 'true') {
+    document.documentElement.classList.add('dark');
+    $('#darkIcon').className = 'fa-solid fa-sun text-ink-700 dark:text-ink-100';
+  }
+  renderNav();
+  navigate('home');
+}
+window.addEventListener('DOMContentLoaded', () => setTimeout(init, 100));
+</script>
+</body>
+</html>
