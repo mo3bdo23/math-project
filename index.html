@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>معمل النسبة والتشابه | مجموعة 40626123</title>
+<title>معمل النسبة والتشابه | مجموعة 406123</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -63,7 +63,7 @@
         </div>
         <div class="leading-tight">
           <div class="font-black text-base md:text-lg">معمل النسبة والتشابه</div>
-          <div class="text-xs text-ink-700/70 dark:text-ink-100/60">مجموعة 40626123</div>
+          <div class="text-xs text-ink-700/70 dark:text-ink-100/60">مجموعة 406123</div>
         </div>
       </a>
       <nav class="hidden lg:flex items-center gap-1" id="desktop-nav"></nav>
@@ -95,72 +95,32 @@
     </div>
     <p class="text-sm text-ink-700/70 dark:text-ink-100/60">مشروع Capstone – الرياضيات التطبيقية – الصف الأول الثانوي</p>
     <p class="text-sm text-ink-700/70 dark:text-ink-100/60">الوحدة الأولى: Ratio &amp; Similarity</p>
-    <p class="text-xs mt-3 text-ink-700/50 dark:text-ink-100/40">© 2026 · مجموعة 40626123 · جميع الحقوق محفوظة</p>
+    <p class="text-xs mt-3 text-ink-700/50 dark:text-ink-100/40">© 2026 · مجموعة 406123 · جميع الحقوق محفوظة</p>
   </div>
 </footer>
 
 <script>
 const NAV = [
-  { id:'home',      label:'الرئيسية',      icon:'fa-house' },
-  { id:'theory',    label:'المفاهيم',      icon:'fa-book-open' },
-  { id:'ratio',     label:'مختبر النسبة',  icon:'fa-scale-balanced' },
-  { id:'variation', label:'التغير',        icon:'fa-chart-line' },
-  { id:'polygons',  label:'المضلعات',      icon:'fa-draw-polygon' },
-  { id:'triangle',  label:'المثلثات',      icon:'fa-play' },
-  { id:'tech',      label:'التطبيقات',     icon:'fa-microchip' },
-  { id:'quiz',      label:'اختبار',        icon:'fa-circle-question' },
-  { id:'docs',      label:'الوثائق',       icon:'fa-file-lines' },
+  { id:'home', label:'الرئيسية', icon:'fa-house' },
+  { id:'theory', label:'المفاهيم', icon:'fa-book-open' },
+  { id:'ratio', label:'مختبر النسبة', icon:'fa-scale-balanced' },
+  { id:'variation', label:'التغير', icon:'fa-chart-line' },
+  { id:'polygons', label:'المضلعات', icon:'fa-draw-polygon' },
+  { id:'triangle', label:'المثلثات', icon:'fa-play' },
+  { id:'tech', label:'التطبيقات', icon:'fa-microchip' },
+  { id:'quiz', label:'اختبار', icon:'fa-circle-question' },
+  { id:'docs', label:'الوثائق', icon:'fa-file-lines' },
 ];
 
 const LESSONS = [
-  { title:'النسبة (Ratio)', icon:'fa-divide', color:'brand',
-    def:'مقارنة بين كميتين من نفس النوع بقسمة إحداهما على الأخرى. تُكتب a:b أو a/b.',
-    formula:'\\text{Ratio} = a : b = \\frac{a}{b}',
-    example:'20 طالبًا و 5 معلمات → 20:5 = 4:1',
-    mistake:'الخلط بين a:b و b:a — النسبة ترتيبية.',
-    q:'بسّط 24:36', a:'2:3' },
-  { title:'التناسب (Proportion)', icon:'fa-equals', color:'leaf',
-    def:'تساوي نسبتين: a/b = c/d. حاصل ضرب الطرفين = حاصل ضرب الوسطين (ad = bc).',
-    formula:'\\frac{a}{b} = \\frac{c}{d} \\iff ad = bc',
-    example:'2/3 = x/6 → 12 = 3x → x = 4',
-    mistake:'ضرب البسط بالبسط بدلًا من الضرب التبادلي.',
-    q:'حل 4/5 = 12/x', a:'x = 15' },
-  { title:'التغير الطردي (Direct)', icon:'fa-arrow-trend-up', color:'sun',
-    def:'y يتغير طرديًا مع x إذا كان y = kx، و k ≠ 0 (ثابت التغير).',
-    formula:'y = kx \\quad\\Rightarrow\\quad k = \\frac{y}{x}',
-    example:'k = 5, x = 3 → y = 15',
-    mistake:'الاعتقاد أن الفرق ثابت (y-x) وليس النسبة (y/x).',
-    q:'إذا كان y = 7x، أوجد y عند x = 4.', a:'y = 28' },
-  { title:'التغير العكسي (Inverse)', icon:'fa-arrow-trend-down', color:'grape',
-    def:'y يتغير عكسيًا مع x إذا كان y = k/x، و x ≠ 0 (ثابت التغير العكسي).',
-    formula:'y = \\frac{k}{x} \\quad\\Rightarrow\\quad k = xy',
-    example:'k = 12, x = 4 → y = 3',
-    mistake:'السماح لـ x = 0 (غير ممكن رياضيًا).',
-    q:'إذا كان y = 20/x، أوجد y عند x = 5.', a:'y = 4' },
-  { title:'المضلعات المتشابهة', icon:'fa-shapes', color:'brand',
-    def:'زوايا متناظرة متساوية + أضلاع متناظرة متناسبة. النسبة الثابتة هي معامل التشابه k.',
-    formula:'k = \\frac{a_2}{a_1},\\quad \\frac{P_2}{P_1}=k,\\quad \\frac{A_2}{A_1}=k^2',
-    example:'مستطيلان 4×3 و 8×6 → k = 2، نسبة المساحة = 4',
-    mistake:'تناسب ضلعين فقط دون التحقق من جميع الأضلاع.',
-    q:'مربعان ضلعاهما 2 و 6 — ما نسبة المساحة؟', a:'k² = 9' },
-  { title:'تشابه المثلثات', icon:'fa-play', color:'leaf',
-    def:'حالات التشابه: AA (زاويتان)، SAS (ضلعان والزاوية المحصورة)، SSS (ثلاثة أضلاع).',
-    formula:'\\triangle ABC \\sim \\triangle DEF \\iff \\frac{AB}{DE}=\\frac{BC}{EF}=\\frac{AC}{DF}',
-    example:'مثلثان بزوايا 50° و 60° → متشابهان بـ AA',
-    mistake:'استخدام SSA (زاوية غير محصورة) كحالة تشابه — غير صحيحة.',
-    q:'إذا تساوت زاويتان في مثلثين — أي حالة؟', a:'AA' },
-  { title:'معامل التشابه (Scale Factor)', icon:'fa-expand', color:'sun',
-    def:'k = البعد في الشكل الثاني ÷ البعد المناظر في الأول.',
-    formula:'P_2 = k\\cdot P_1,\\quad A_2 = k^2 \\cdot A_1',
-    example:'نموذج 8 سم، k = 15 → الحقيقي 120 سم',
-    mistake:'ضرب المساحة في k بدلًا من k².',
-    q:'إذا تضاعف ضلع مربع — ما نسبة مساحته؟', a:'4' },
-  { title:'تطبيقات المنهج', icon:'fa-microchip', color:'brand',
-    def:'طريقة الظل (Thales)، طريقة المرآة، النموذج المصغّر.',
-    formula:'\\frac{H}{h}=\\frac{L}{l},\\quad H = \\frac{h \\cdot L}{l}',
-    example:'عصا 1.5م/ظل 2م، ظل برج 30م → H = 22.5م',
-    mistake:'استخدام القياسات في وحدات مختلفة دون توحيدها.',
-    q:'عصا 2م وظلها 3م، برج ظله 30م → ارتفاعه؟', a:'20م' },
+  { title:'النسبة (Ratio)', icon:'fa-divide', color:'brand', def:'مقارنة بين كميتين من نفس النوع بقسمة إحداهما على الأخرى. تُكتب a:b أو a/b.', formula:'\\text{Ratio} = a : b = \\frac{a}{b}', example:'20 طالبًا و 5 معلمات → 20:5 = 4:1', mistake:'الخلط بين a:b و b:a — النسبة ترتيبية.', q:'بسّط 24:36', a:'2:3' },
+  { title:'التناسب (Proportion)', icon:'fa-equals', color:'leaf', def:'تساوي نسبتين: a/b = c/d. حاصل ضرب الطرفين = حاصل ضرب الوسطين (ad = bc).', formula:'\\frac{a}{b} = \\frac{c}{d} \\iff ad = bc', example:'2/3 = x/6 → 12 = 3x → x = 4', mistake:'ضرب البسط بالبسط بدلًا من الضرب التبادلي.', q:'حل 4/5 = 12/x', a:'x = 15' },
+  { title:'التغير الطردي (Direct)', icon:'fa-arrow-trend-up', color:'sun', def:'y يتغير طرديًا مع x إذا كان y = kx، و k ≠ 0 (ثابت التغير).', formula:'y = kx \\quad\\Rightarrow\\quad k = \\frac{y}{x}', example:'k = 5, x = 3 → y = 15', mistake:'الاعتقاد أن الفرق ثابت (y-x) وليس النسبة (y/x).', q:'إذا كان y = 7x، أوجد y عند x = 4.', a:'y = 28' },
+  { title:'التغير العكسي (Inverse)', icon:'fa-arrow-trend-down', color:'grape', def:'y يتغير عكسيًا مع x إذا كان y = k/x، و x ≠ 0 (ثابت التغير العكسي).', formula:'y = \\frac{k}{x} \\quad\\Rightarrow\\quad k = xy', example:'k = 12, x = 4 → y = 3', mistake:'السماح لـ x = 0 (غير ممكن رياضيًا).', q:'إذا كان y = 20/x، أوجد y عند x = 5.', a:'y = 4' },
+  { title:'المضلعات المتشابهة', icon:'fa-shapes', color:'brand', def:'زوايا متناظرة متساوية + أضلاع متناظرة متناسبة. النسبة الثابتة هي معامل التشابه k.', formula:'k = \\frac{a_2}{a_1},\\quad \\frac{P_2}{P_1}=k,\\quad \\frac{A_2}{A_1}=k^2', example:'مستطيلان 4×3 و 8×6 → k = 2، نسبة المساحة = 4', mistake:'تناسب ضلعين فقط دون التحقق من جميع الأضلاع.', q:'مربعان ضلعاهما 2 و 6 — ما نسبة المساحة؟', a:'k² = 9' },
+  { title:'تشابه المثلثات', icon:'fa-play', color:'leaf', def:'حالات التشابه: AA (زاويتان)، SAS (ضلعان والزاوية المحصورة)، SSS (ثلاثة أضلاع).', formula:'\\triangle ABC \\sim \\triangle DEF \\iff \\frac{AB}{DE}=\\frac{BC}{EF}=\\frac{AC}{DF}', example:'مثلثان بزوايا 50° و 60° → متشابهان بـ AA', mistake:'استخدام SSA (زاوية غير محصورة) كحالة تشابه — غير صحيحة.', q:'إذا تساوت زاويتان في مثلثين — أي حالة؟', a:'AA' },
+  { title:'معامل التشابه (Scale Factor)', icon:'fa-expand', color:'sun', def:'k = البعد في الشكل الثاني ÷ البعد المناظر في الأول.', formula:'P_2 = k\\cdot P_1,\\quad A_2 = k^2 \\cdot A_1', example:'نموذج 8 سم، k = 15 → الحقيقي 120 سم', mistake:'ضرب المساحة في k بدلًا من k².', q:'إذا تضاعف ضلع مربع — ما نسبة مساحته؟', a:'4' },
+  { title:'تطبيقات المنهج', icon:'fa-microchip', color:'brand', def:'طريقة الظل (Thales)، طريقة المرآة، النموذج المصغّر.', formula:'\\frac{H}{h}=\\frac{L}{l},\\quad H = \\frac{h \\cdot L}{l}', example:'عصا 1.5م/ظل 2م، ظل برج 30م → H = 22.5م', mistake:'استخدام القياسات في وحدات مختلفة دون توحيدها.', q:'عصا 2م وظلها 3م، برج ظله 30م → ارتفاعه؟', a:'20م' },
 ];
 
 const QUIZ = [
@@ -242,7 +202,7 @@ function viewHome(){
       </p>
       <div class="flex flex-wrap justify-center gap-3 mb-8">
         <span class="px-4 py-2 rounded-xl bg-white/10 backdrop-blur text-sm">🏫 WE للتكنولوجيا التطبيقية</span>
-        <span class="px-4 py-2 rounded-xl bg-white/10 backdrop-blur text-sm">👥 مجموعة 40626123</span>
+        <span class="px-4 py-2 rounded-xl bg-white/10 backdrop-blur text-sm">👥 مجموعة 406123</span>
         <span class="px-4 py-2 rounded-xl bg-white/10 backdrop-blur text-sm">📚 Unit 1: Ratio &amp; Similarity</span>
       </div>
       <div class="max-w-2xl mx-auto p-6 rounded-2xl bg-white/10 backdrop-blur border border-white/20">
@@ -454,7 +414,6 @@ function viewTech(){
     <button data-act="tab-tech" data-tab="model" class="tab-btn px-5 py-2 rounded-xl bg-ink-100 dark:bg-ink-800 text-sm font-bold">📦 النموذج المصغّر</button>
   </div>
 
-  <!-- Shadow Method -->
   <div id="tech-tower" class="tab-content bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
     <h3 class="font-black text-lg mb-2">📏 قياس ارتفاع باستخدام الظل (Thales Method)</h3>
     <p class="text-sm text-ink-700 dark:text-ink-100/70 mb-4">استخدم تشابه المثلثات الناتج عن أشعة الشمس وظل جسم معلوم الارتفاع.</p>
@@ -467,7 +426,6 @@ function viewTech(){
     <div id="tw-out" class="mt-4 bg-ink-50 dark:bg-ink-950 rounded-xl p-4 text-sm min-h-[80px] text-ink-700/60 dark:text-ink-100/50">النتيجة ستظهر هنا...</div>
   </div>
 
-  <!-- Mirror Method -->
   <div id="tech-mirror" class="tab-content section-hidden bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
     <h3 class="font-black text-lg mb-2">🪞 قياس ارتفاع شجرة/زرافة باستخدام المرآة</h3>
     <p class="text-sm text-ink-700 dark:text-ink-100/70 mb-4">زاوية السقوط = زاوية الانعكاس (تشابه المثلثات).</p>
@@ -480,7 +438,6 @@ function viewTech(){
     <div id="mr-out" class="mt-4 bg-ink-50 dark:bg-ink-950 rounded-xl p-4 text-sm min-h-[80px] text-ink-700/60 dark:text-ink-100/50">النتيجة ستظهر هنا...</div>
   </div>
 
-  <!-- Scale Model -->
   <div id="tech-model" class="tab-content section-hidden bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
     <h3 class="font-black text-lg mb-2">📦 تحويل النموذج المصغّر (Scale Model)</h3>
     <p class="text-sm text-ink-700 dark:text-ink-100/70 mb-4">استخدم معامل التشابه k لتحويل أبعاد القطعة الميكانيكية.</p>
@@ -536,7 +493,7 @@ function viewDocs(){
     <div class="bg-white dark:bg-ink-900 rounded-2xl p-6 shadow-soft border border-ink-200/60 dark:border-ink-800">
       <h2 class="font-black text-lg mb-3">🎤 نص التقديم</h2>
       <div class="text-sm text-ink-700 dark:text-ink-100/80 leading-relaxed">
-        <p>السلام عليكم، نحن مجموعة <b>40626123</b> من WE للتكنولوجيا التطبيقية.</p>
+        <p>السلام عليكم، نحن مجموعة <b>406123</b> من WE للتكنولوجيا التطبيقية.</p>
         <p class="mt-2">مشروعنا: <b>معمل النسبة والتشابه</b> — يربط مفاهيم الوحدة الأولى بتطبيقات تكنولوجية واقعية.</p>
         <p class="mt-2">بنينا موقعًا تفاعليًا يشمل 8 مفاهيم، 5 أدوات، اختبارًا، ووثائق كاملة.</p>
         <p class="mt-2">السيناريو الرئيسي: تطبيق طريقة الظل وطريقة المرآة والنموذج المصغّر — كما وردت في كتاب الوزارة.</p>
@@ -907,72 +864,4 @@ function drawPolySVG(s1, s2, k){
   </svg>`;
 }
 
-function startQuiz(){
-  quizState = { idx:0, score:0 };
-  renderQuizQ();
-}
-function renderQuizQ(){
-  const q = QUIZ[quizState.idx];
-  if (!q) return endQuiz();
-  $('#q-num').textContent = quizState.idx + 1;
-  $('#q-score').textContent = quizState.score;
-  $('#q-bar').style.width = `${(quizState.idx / QUIZ.length) * 100}%`;
-  $('#q-text').textContent = q.q;
-  $('#q-opts').innerHTML = q.opts.map((o,i) => `
-    <button data-q="${i}" class="q-opt w-full text-right px-4 py-3 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800 hover:border-brand-500 transition font-medium">
-      ${String.fromCharCode(65+i)}. ${o}
-    </button>`).join('');
-  $('#q-feedback').innerHTML = '';
-  $('#q-next').classList.add('section-hidden');
-  $('#q-restart').classList.add('section-hidden');
-}
-document.addEventListener('click', (e) => {
-  const o = e.target.closest('.q-opt');
-  if (o) {
-    const idx = +o.dataset.q;
-    const q = QUIZ[quizState.idx];
-    $$('.q-opt').forEach((b,i) => {
-      b.disabled = true;
-      if (i === q.correct) b.classList.add('border-leaf-500', 'bg-leaf-400/10');
-      else if (i === idx) b.classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900/20');
-    });
-    if (idx === q.correct) {
-      quizState.score++;
-      $('#q-feedback').innerHTML = `<p class="text-leaf-600 font-bold">✅ صحيح!</p>`;
-    } else {
-      $('#q-feedback').innerHTML = `<p class="text-red-500 font-bold">❌ الإجابة الصحيحة: ${String.fromCharCode(65+q.correct)}. ${q.opts[q.correct]}</p>`;
-    }
-    $('#q-score').textContent = quizState.score;
-    $('#q-next').classList.remove('section-hidden');
-  }
-  if (e.target.id === 'q-next') {
-    quizState.idx++;
-    if (quizState.idx >= QUIZ.length) endQuiz();
-    else renderQuizQ();
-  }
-  if (e.target.id === 'q-restart') startQuiz();
-});
-function endQuiz(){
-  $('#q-bar').style.width = '100%';
-  $('#q-text').textContent = '🎉 انتهى الاختبار!';
-  $('#q-opts').innerHTML = `<div class="text-center p-6 rounded-2xl bg-brand-50 dark:bg-brand-900/20">
-    <p class="text-4xl font-black text-brand-700 dark:text-brand-200 mb-2">${quizState.score} / ${QUIZ.length}</p>
-    <p class="text-sm text-ink-700 dark:text-ink-100/70">${quizState.score >= 7 ? '🏆 ممتاز!' : quizState.score >= 5 ? '👍 جيد' : '💪 حاول مرة أخرى'}</p>
-  </div>`;
-  $('#q-feedback').innerHTML = '';
-  $('#q-next').classList.add('section-hidden');
-  $('#q-restart').classList.remove('section-hidden');
-}
-
-function init(){
-  if (localStorage.getItem('dark') === 'true') {
-    document.documentElement.classList.add('dark');
-    $('#darkIcon').className = 'fa-solid fa-sun text-ink-700 dark:text-ink-100';
-  }
-  renderNav();
-  navigate('home');
-}
-window.addEventListener('DOMContentLoaded', () => setTimeout(init, 100));
-</script>
-</body>
-</html>
+function s
