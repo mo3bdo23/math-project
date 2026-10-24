@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8" />
@@ -864,4 +864,72 @@ function drawPolySVG(s1, s2, k){
   </svg>`;
 }
 
-function s
+function startQuiz(){
+  quizState = { idx:0, score:0 };
+  renderQuizQ();
+}
+function renderQuizQ(){
+  const q = QUIZ[quizState.idx];
+  if (!q) return endQuiz();
+  $('#q-num').textContent = quizState.idx + 1;
+  $('#q-score').textContent = quizState.score;
+  $('#q-bar').style.width = `${(quizState.idx / QUIZ.length) * 100}%`;
+  $('#q-text').textContent = q.q;
+  $('#q-opts').innerHTML = q.opts.map((o,i) => `
+    <button data-q="${i}" class="q-opt w-full text-right px-4 py-3 rounded-xl bg-ink-50 dark:bg-ink-950 border-2 border-ink-200 dark:border-ink-800 hover:border-brand-500 transition font-medium">
+      ${String.fromCharCode(65+i)}. ${o}
+    </button>`).join('');
+  $('#q-feedback').innerHTML = '';
+  $('#q-next').classList.add('section-hidden');
+  $('#q-restart').classList.add('section-hidden');
+}
+document.addEventListener('click', (e) => {
+  const o = e.target.closest('.q-opt');
+  if (o) {
+    const idx = +o.dataset.q;
+    const q = QUIZ[quizState.idx];
+    $$('.q-opt').forEach((b,i) => {
+      b.disabled = true;
+      if (i === q.correct) b.classList.add('border-leaf-500', 'bg-leaf-400/10');
+      else if (i === idx) b.classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900/20');
+    });
+    if (idx === q.correct) {
+      quizState.score++;
+      $('#q-feedback').innerHTML = `<p class="text-leaf-600 font-bold">✅ صحيح!</p>`;
+    } else {
+      $('#q-feedback').innerHTML = `<p class="text-red-500 font-bold">❌ الإجابة الصحيحة: ${String.fromCharCode(65+q.correct)}. ${q.opts[q.correct]}</p>`;
+    }
+    $('#q-score').textContent = quizState.score;
+    $('#q-next').classList.remove('section-hidden');
+  }
+  if (e.target.id === 'q-next') {
+    quizState.idx++;
+    if (quizState.idx >= QUIZ.length) endQuiz();
+    else renderQuizQ();
+  }
+  if (e.target.id === 'q-restart') startQuiz();
+});
+function endQuiz(){
+  $('#q-bar').style.width = '100%';
+  $('#q-text').textContent = '🎉 انتهى الاختبار!';
+  $('#q-opts').innerHTML = `<div class="text-center p-6 rounded-2xl bg-brand-50 dark:bg-brand-900/20">
+    <p class="text-4xl font-black text-brand-700 dark:text-brand-200 mb-2">${quizState.score} / ${QUIZ.length}</p>
+    <p class="text-sm text-ink-700 dark:text-ink-100/70">${quizState.score >= 7 ? '🏆 ممتاز!' : quizState.score >= 5 ? '👍 جيد' : '💪 حاول مرة أخرى'}</p>
+  </div>`;
+  $('#q-feedback').innerHTML = '';
+  $('#q-next').classList.add('section-hidden');
+  $('#q-restart').classList.remove('section-hidden');
+}
+
+function init(){
+  if (localStorage.getItem('dark') === 'true') {
+    document.documentElement.classList.add('dark');
+    $('#darkIcon').className = 'fa-solid fa-sun text-ink-700 dark:text-ink-100';
+  }
+  renderNav();
+  navigate('home');
+}
+window.addEventListener('DOMContentLoaded', () => setTimeout(init, 100));
+</script>
+</body>
+</html>
